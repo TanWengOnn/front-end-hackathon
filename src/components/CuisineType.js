@@ -36,7 +36,7 @@ const CuisineType = ({ cuisineType }) => {
         console.log(`${error.response.status} (${error.message})`)
         setIsPending(false)
       })
-    }, [query, cuisineType]) // "cuisineType" in "useEffect" allows the page to refresh when changing between the cuisine type
+    }, [query, url, cuisineType]) // "cuisineType" in "useEffect" allows the page to refresh when changing between the cuisine type
 
     const handleSubmit = (e) => {
       e.preventDefault()

@@ -36,7 +36,7 @@ const Home = () => {
         console.log(`${error.response.status} (${error.message})`)
         setIsPending(false)
       })
-    }, [query])
+    }, [query, url])
 
     const handleSubmit = (e) => {
       e.preventDefault();
