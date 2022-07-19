@@ -18,7 +18,7 @@ const CuisineType = ({ cuisineType }) => {
     // Get Request 
     useEffect(() => {
       setIsPending(true);
-      console.log("test2");
+      // console.log("test2");
       axios.get(url)
       .then((response) => {
         // Show Alert if search item does not exist

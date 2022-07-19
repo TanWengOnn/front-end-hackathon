@@ -26,7 +26,7 @@ const Home = ({ cuisineType }) => {
     // Get Request 
     useEffect(() => {
       setIsPending(true);
-      console.log("test");
+      // console.log("test");
       axios.get(url)
       .then((response) => {
         // Show Alert if search item does not exist
@@ -69,7 +69,13 @@ const Home = ({ cuisineType }) => {
           {/* Show loading message */}
           { isPending && <div>Loading...</div> }
           {/* Render the recipes */}
-          {recipes !== [] && recipes.map(recipe => <Recipe recipe={recipe} key={uuidv4()} /> )}
+          {recipes !== [] && recipes.map(recipe => <Recipe 
+          label={recipe.recipe.label} 
+          image={recipe.recipe.image} 
+          url={recipe.recipe.url} 
+          ingredients={recipe.recipe.ingredients}
+          favourite={false} 
+          key={uuidv4()} /> )}
         </div>
      );
 }
