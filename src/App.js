@@ -3,7 +3,7 @@ import Home from "./components/Home"
 import NavBar from './components/NavBar';
 // import CuisineType from './components/CuisineType';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-// import RecipeDetail from './components/RecipeDetail';
+import RecipeDetail from './components/RecipeDetail';
 import Favourite from './components/Favourite';
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
           {/* Copy paste the line below for more cuisine type */}
           <Route exact path="/indian" element={<Home cuisineType={"Indian"}/>}/>
           <Route exact path="/chinese" element={ <Home cuisineType={"Chinese"}/>}/>
+          <Route exact path="/recipe-details" element={ <RecipeDetail />}/>
           {/* <Route exact path="/recipe-detail" element={ <RecipeDetail /> }/> */}
         </Routes>
       </div>
