@@ -4,14 +4,24 @@ import { v4 as uuidv4} from "uuid"
 import Alert from './Alert';
 import Recipe from './Recipe';
 
-const Home = () => {
+const Home = ({ cuisineType }) => {
     const [search, setSearch] = useState("") 
     const [query, setQuery] = useState("chicken") 
     const [recipes, setRecipes] = useState([]);
     const [alert, setAlert] = useState("");
     const [isPending, setIsPending] = useState(true);
 
-    const url = `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${process.env.REACT_APP_ID}&app_key=${process.env.REACT_APP_KEY}`
+    let url;
+
+
+    if (cuisineType === "Home")
+    {
+      url = `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${process.env.REACT_APP_ID}&app_key=${process.env.REACT_APP_KEY}`
+    }
+    else{
+      url = `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${process.env.REACT_APP_ID}&app_key=${process.env.REACT_APP_KEY}&cuisineType=${cuisineType}`
+    }
+    
 
     // Get Request 
     useEffect(() => {
@@ -36,7 +46,7 @@ const Home = () => {
         console.log(`${error.response.status} (${error.message})`)
         setIsPending(false)
       })
-    }, [query, url])
+    }, [query, url, cuisineType])
 
     const handleSubmit = (e) => {
       e.preventDefault();
