@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { v4 as uuidv4} from "uuid"
+import { v4 as uuidv4 } from "uuid";
 import Alert from './Alert';
 import Recipe from './Recipe';
 
@@ -69,7 +69,7 @@ const Home = ({ cuisineType }) => {
           {/* Show loading message */}
           { isPending && <div>Loading...</div> }
           {/* Render the recipes */}
-          {recipes !== [] && recipes.map(recipe => <Recipe 
+          {recipes !== [] && recipes.slice(0,6).map(recipe => <Recipe 
           label={recipe.recipe.label} 
           image={recipe.recipe.image} 
           url={recipe.recipe.url} 
