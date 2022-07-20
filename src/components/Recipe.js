@@ -12,6 +12,7 @@ import { db } from "../firebase-config";
 import { ReactComponent as GreyHeart } from "../images/grey-heart.svg"; // Imported svg from file as a component
 import { ReactComponent as RedHeart } from "../images/red-heart.svg"; // Imported svg from file as a component
 import "./Recipe.css";
+import ReactTooltip from "react-tooltip";
 
 const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
   // const { label, image, url, ingredients } = recipe.recipe;
@@ -73,6 +74,8 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
     }
   };
 
+  setTimeout(ReactTooltip.hide, 1000);
+
   //console.log("food: "+ingredients.map(ingredient => ingredient.foodId))
   return (
     <div className="main-container">
@@ -100,9 +103,15 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
             <>
               {" "}
               {/* Replaced favourite button with icon */}
-              <RedHeart className="icon" onClick={createRecipe} />
+              <RedHeart
+                className="icon"
+                onClick={createRecipe}
+                data-tip="Add to Favourite"
+                data-for="redHeart"
+              />{" "}
             </>
           )}
+
           {favourite && (
             <>
               <GreyHeart
@@ -110,9 +119,17 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
                 onClick={() => {
                   deleteRecipe(id);
                 }}
+                data-tip="Remove from Favourite"
+                data-for="greyHeart"
               />
             </>
           )}
+          <ReactTooltip id="redHeart" place="top" effect="solid"></ReactTooltip>
+          <ReactTooltip
+            id="greyHeart"
+            place="top"
+            effect="solid"
+          ></ReactTooltip>
         </div>
       </div>
       {/* shows the ingredients */}
