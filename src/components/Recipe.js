@@ -74,14 +74,11 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
     }
   };
 
-  setTimeout(ReactTooltip.hide, 1000);
-
   //console.log("food: "+ingredients.map(ingredient => ingredient.foodId))
   return (
     <div className="main-container">
       {/* shows all of the recipe details */}
 
-      <h2> {label} </h2>
       <div className="image-container">
         {/* Redirect image to recipe details page with all the information  */}
         <Link
@@ -97,6 +94,7 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
           }}
         >
           <img src={image} alt={label} />
+          <h3 className="label_text"> {label} </h3>
         </Link>
         <div className="icon-container">
           {!favourite && (
