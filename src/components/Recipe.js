@@ -13,6 +13,8 @@ import { ReactComponent as GreyHeart } from "../images/grey-heart.svg"; // Impor
 import { ReactComponent as RedHeart } from "../images/red-heart.svg"; // Imported svg from file as a component
 import "./Recipe.css";
 import ReactTooltip from "react-tooltip";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
   // const { label, image, url, ingredients } = recipe.recipe;
@@ -54,6 +56,8 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
         });
       } catch (error) {
         console.error(error);
+      } finally {
+        toast("Saved to Favourites!");
       }
     }
     // else{
@@ -71,6 +75,8 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
       window.location.reload();
     } catch (error) {
       console.error(error);
+    } finally {
+      // toast("Removed from Favourites!");
     }
   };
 
@@ -144,6 +150,7 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
       }
 
       {/* <Link to="/recipe-detail"><button>More Detail</button></Link> */}
+      <ToastContainer />
     </div>
   );
 };
