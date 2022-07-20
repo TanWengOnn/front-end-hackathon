@@ -24,7 +24,7 @@ const Home = ({ cuisineType }) => {
   // Get Request
   useEffect(() => {
     setIsPending(true);
-    console.log("test");
+    // console.log("test");
     axios
       .get(url)
       .then((response) => {

@@ -47,7 +47,6 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
     if (!favouriteRecipes.includes(label)) {
       // error handling
       try {
-        console.log("added")
         await addDoc(userCollectionRef, {
           label: label,
           image: image,
@@ -60,7 +59,6 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
         console.error(error);
       } finally {
         toast("Saved to Favourites!");
-        console.log("Toast")
       }
     }
     else{
