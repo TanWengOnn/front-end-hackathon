@@ -1,3 +1,4 @@
+// Show no search result found alert
 const Alert = ( {alert} ) => {
     return ( 
     <div>

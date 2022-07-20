@@ -3,21 +3,14 @@ import "./NavBar.css";
 import { FaUtensils } from "react-icons/fa";
 
 const NavBar = () => {
-  // const linkStyle = {
-  //   margin: "1rem",
-  //   textDecoration: "none",
-  //   color: "green",
-
-  // };
-
   return (
     <div className="navbar">
-      {/* <div className="wrapper"> */}
       <h1 className="logo">
         <FaUtensils />
         Mealicious
       </h1>
       <div className="menu">
+        {/* Create NavBar hyperlinks */}
         <Link to="/" className="links">
           Home
         </Link>
@@ -28,7 +21,6 @@ const NavBar = () => {
           Chinese
         </Link>
       </div>
-      {/* </div> */}
     </div>
   );
 };
