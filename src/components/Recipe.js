@@ -47,6 +47,7 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
     if (!favouriteRecipes.includes(label)) {
       // error handling
       try {
+        console.log("added")
         await addDoc(userCollectionRef, {
           label: label,
           image: image,
@@ -54,16 +55,19 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
           ingredients: ingredients,
           favourite: true,
         });
+        
       } catch (error) {
         console.error(error);
       } finally {
         toast("Saved to Favourites!");
+        console.log("Toast")
       }
     }
-    // else{
-    //   console.log("entry exist")
-    //   console.log(favouriteRecipes)
-    // }
+    else{
+      toast("Already exist in Favourites!");
+      // console.log("entry exist")
+      // console.log(favouriteRecipes)
+    }
   };
 
   // Delete/Remove "favourite" and refresh the page

@@ -71,7 +71,7 @@ const Home = ({ cuisineType }) => {
 
       <div className="recipes_container">
         {/* letak if else untuk display cuisine type */}
-        <h1>Just for you</h1>
+        {cuisineType === "Home" ? <h1>Just for you</h1> : <h1>{cuisineType}</h1>}
         {/* Render alert if there is an alert */}
         {alert !== "" && <Alert alert={alert} />}
         {/* Show loading message */}

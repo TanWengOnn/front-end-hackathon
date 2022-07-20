@@ -54,3 +54,10 @@
   justify-content: center;
   margin-top: 1rem;
 }
+
+/* ---------------------Responsive------------------ */
+@media (max-width: 1100px) {
+  .recipes_container {
+    margin-top: 370px;
+  }
+}

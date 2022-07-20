@@ -12,3 +12,11 @@
   justify-content: center;
   margin-top: 1rem;
 }
+
+/* ---------------------Responsive------------------ */
+@media (max-width: 1100px) {
+  .favourite_container {
+    margin-top: 585px;
+  }
+}
+
