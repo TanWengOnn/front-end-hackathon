@@ -1,3 +1,4 @@
+// Connecting to firebase database
 import { initializeApp } from "firebase/app";
 import { getFirestore } from '@firebase/firestore'
 

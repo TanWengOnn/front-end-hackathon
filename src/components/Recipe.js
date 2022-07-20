@@ -9,13 +9,20 @@ import "./Recipe.css";
 
 const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
   // const { label, image, url, ingredients } = recipe.recipe;
+  // Getting Database "table"
   const userCollectionRef = collection(db, "favourite");
   const [favouriteRecipes, setFavouriteRecipes] = useState([])
 
+  // Get all of the labels within the database
   const getRecipes = async () => {
-    const data = await getDocs(userCollectionRef);
-    const dbLabels =  data.docs.map(doc => ({...doc.data(), id: doc.id}))
-    setFavouriteRecipes(dbLabels.map(recipe => recipe.label))
+    // error handling
+    try{
+      const data = await getDocs(userCollectionRef);
+      const dbLabels =  data.docs.map(doc => ({...doc.data(), id: doc.id}))
+      setFavouriteRecipes(dbLabels.map(recipe => recipe.label))
+    }catch(error){
+      console.error(error)
+    }
   }
 
   useEffect(()=>{
@@ -27,16 +34,22 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
   const createRecipe = async () => {
     getRecipes();
 
+    // Compares the label with the database's labels
     // checks if the label already exist in the database 
     if (!favouriteRecipes.includes(label)){
-      await addDoc(userCollectionRef, {
-        label: label,
-        image: image,
-        url: url,
-        ingredients: ingredients,
-        favourite: true,
-      });
-      
+      // error handling
+      try{
+        await addDoc(userCollectionRef, {
+          label: label,
+          image: image,
+          url: url,
+          ingredients: ingredients,
+          favourite: true,
+        });
+      }catch (error){
+        console.error(error)
+      }
+           
     }
     // else{
     //   console.log("entry exist")
@@ -45,10 +58,17 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
     
   };
 
+  // Delete/Remove "favourite" and refresh the page 
   const deleteRecipe = async (id) => {
-    const recipeDoc = doc(db, "favourite", id);
-    await deleteDoc(recipeDoc);
-    window.location.reload();
+    // error handling
+    try{
+      const recipeDoc = doc(db, "favourite", id);
+      await deleteDoc(recipeDoc);
+      window.location.reload();
+    }
+    catch (error) {
+      console.error(error)
+    }
   };
 
   //console.log("food: "+ingredients.map(ingredient => ingredient.foodId))
@@ -58,6 +78,7 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
 
       <h2> {label} </h2>
       <div className="image-container">
+        {/* Redirect image to recipe details page with all the information  */}
         <Link
           className="image"
           to="/recipe-details"

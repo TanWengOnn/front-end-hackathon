@@ -13,7 +13,6 @@ const Home = ({ cuisineType }) => {
 
     let url;
 
-
     if (cuisineType === "Home")
     {
       url = `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${process.env.REACT_APP_ID}&app_key=${process.env.REACT_APP_KEY}`
@@ -59,6 +58,7 @@ const Home = ({ cuisineType }) => {
     
     return ( 
         <div>
+          {/* Get user input */}
           <form onSubmit={handleSubmit}>
             <input type="text" placeholder='Search food...' value={search} onChange={(e) => setSearch(e.target.value)} />
             <button type='submit'>Search</button> 
@@ -68,7 +68,7 @@ const Home = ({ cuisineType }) => {
           {alert !== "" && <Alert alert={alert}/>}
           {/* Show loading message */}
           { isPending && <div>Loading...</div> }
-          {/* Render the recipes */}
+          {/* Render only 6 recipe cards */}
           {recipes !== [] && recipes.slice(0,6).map(recipe => <Recipe 
           label={recipe.recipe.label} 
           image={recipe.recipe.image} 

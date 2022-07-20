@@ -5,19 +5,28 @@ import Recipe from "./Recipe";
 import { v4 as uuidv4} from "uuid"
 
 const Favourite = () => {
+    // Getting Database "table"
     const userCollectionRef = collection(db, "favourite")
+    // State to hold the database information
     const [favouriteRecipes, setFavouriteRecipes] = useState([])
 
+    // Getting Database information on startup/refresh
     useEffect(() => {
         const getRecipes = async () => {
-            const data = await getDocs(userCollectionRef);
-            setFavouriteRecipes(data.docs.map(doc => ({...doc.data(), id: doc.id})))
+            // Error Handling
+            try{
+                const data = await getDocs(userCollectionRef);
+                setFavouriteRecipes(data.docs.map(doc => ({...doc.data(), id: doc.id})))
+            }catch (error){
+                console.error(error)
+            }
+            
         }
 
         getRecipes()
     }, []);
 
-    console.log(favouriteRecipes)
+    //console.log(favouriteRecipes)
 
     return ( 
         <div>
@@ -25,6 +34,7 @@ const Favourite = () => {
 
             {favouriteRecipes.length === 0 && <h2>No Favourites</h2>}
 
+            {/* Recipe "Card" in the Favourite page */}
             {favouriteRecipes.map(recipe => (
                <Recipe key={uuidv4()}
                label={recipe.label} 

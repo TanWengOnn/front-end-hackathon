@@ -16,6 +16,7 @@ const RecipeDetail = () => {
             ingredients: location.state.ingredients, favourite: true});
     }
 
+    // Delete/Remove "favourite" and go back to the previous page 
     const deleteRecipe = async (id) => {
         const recipeDoc = doc(db, "favourite", id);
         await deleteDoc(recipeDoc);
@@ -23,6 +24,7 @@ const RecipeDetail = () => {
         navigate(-1);
     }
 
+    // previous page button 
     const handleBack = () => {
         navigate(-1);
     }

@@ -5,6 +5,7 @@ const NavBar = () => {
         <nav className="navbar">
             <h1>Melicious</h1>
             <div className="links">
+                {/* Create NavBar hyperlinks */}
                 <Link to="/">Home</Link>
                 <Link to="/favourite">Favourite</Link>
                 <Link to="/indian">Indian</Link>

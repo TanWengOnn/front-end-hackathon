@@ -9,6 +9,7 @@ import Favourite from './components/Favourite';
 function App() {
 
   return (
+    // Setting the main routes for the application 
     <Router >
       <div className="App">
         <NavBar />
