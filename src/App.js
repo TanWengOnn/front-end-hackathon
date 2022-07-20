@@ -18,13 +18,33 @@ function App() {
           {/* Copy paste the line below for more cuisine type */}
           <Route
             exact
+            path="/south_east_asian"
+            element={<Home cuisineType={"South East Asian"} />}
+          />
+          <Route
+            exact
+            path="/middle_eastern"
+            element={<Home cuisineType={"Middle Eastern"} />}
+          />
+          <Route
+            exact
             path="/indian"
             element={<Home cuisineType={"Indian"} />}
           />
           <Route
             exact
+            path="/american"
+            element={<Home cuisineType={"American"} />}
+          />
+          <Route
+            exact
             path="/chinese"
             element={<Home cuisineType={"Chinese"} />}
+          />
+          <Route
+            exact
+            path="/italian"
+            element={<Home cuisineType={"Italian"} />}
           />
           <Route exact path="/recipe-details" element={<RecipeDetail />} />
           {/* <Route exact path="/recipe-detail" element={ <RecipeDetail /> }/> */}

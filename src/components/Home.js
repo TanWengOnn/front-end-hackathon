@@ -77,21 +77,18 @@ const Home = ({ cuisineType }) => {
       <div className="wrapper">
         <div className="recipes">
           {recipes !== [] &&
-            recipes.slice(0, 6).map((recipe) => (
-              <Recipe
-                key={recipe.recipe.label}
-                title={recipe.recipe.label}
-                calories={recipe.recipe.calories}
-                image={recipe.recipe.image}
-                ingredients={recipe.recipe.ingredients}
-                // label={recipe.recipe.label}
-                // image={recipe.recipe.image}
-                // url={recipe.recipe.url}
-                // ingredients={recipe.recipe.ingredients}
-                // favourite={false}
-                // key={uuidv4()}
-              />
-            ))}
+            recipes
+              .slice(0, 6)
+              .map((recipe) => (
+                <Recipe
+                  label={recipe.recipe.label}
+                  image={recipe.recipe.image}
+                  url={recipe.recipe.url}
+                  ingredients={recipe.recipe.ingredients}
+                  favourite={false}
+                  key={uuidv4()}
+                />
+              ))}
         </div>
       </div>
     </div>
