@@ -1,16 +1,36 @@
-import { Link } from "react-router-dom" 
+import { Link } from "react-router-dom";
+import "./NavBar.css";
+import { FaUtensils } from "react-icons/fa";
 
 const NavBar = () => {
-    return ( 
-        <nav className="navbar">
-            <h1>Melicious</h1>
-            <div className="links">
-                <Link to="/">Home</Link>
-                <Link to="/indian">Indian</Link>
-                <Link to="/chinese">Chinese</Link>
-            </div>
-        </nav>
-     );
-}
- 
+  // const linkStyle = {
+  //   margin: "1rem",
+  //   textDecoration: "none",
+  //   color: "green",
+
+  // };
+
+  return (
+    <div className="navbar">
+      {/* <div className="wrapper"> */}
+      <h1 className="logo">
+        <FaUtensils />
+        Mealicious
+      </h1>
+      <div className="menu">
+        <Link to="/" className="links">
+          Home
+        </Link>
+        <Link to="/indian" className="links">
+          Indian
+        </Link>
+        <Link to="/chinese" className="links">
+          Chinese
+        </Link>
+      </div>
+      {/* </div> */}
+    </div>
+  );
+};
+
 export default NavBar;
