@@ -12,6 +12,7 @@ import { db } from "../firebase-config";
 import { ReactComponent as GreyHeart } from "../images/grey-heart.svg"; // Imported svg from file as a component
 import { ReactComponent as RedHeart } from "../images/red-heart.svg"; // Imported svg from file as a component
 import "./Recipe.css";
+import ReactTooltip from "react-tooltip";
 
 const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
   // const { label, image, url, ingredients } = recipe.recipe;
@@ -78,7 +79,6 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
     <div className="main-container">
       {/* shows all of the recipe details */}
 
-      <h2> {label} </h2>
       <div className="image-container">
         {/* Redirect image to recipe details page with all the information  */}
         <Link
@@ -94,15 +94,22 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
           }}
         >
           <img src={image} alt={label} />
+          <h3 className="label_text"> {label} </h3>
         </Link>
         <div className="icon-container">
           {!favourite && (
             <>
               {" "}
               {/* Replaced favourite button with icon */}
-              <RedHeart className="icon" onClick={createRecipe} />
+              <RedHeart
+                className="icon"
+                onClick={createRecipe}
+                data-tip="Add to Favourite"
+                data-for="redHeart"
+              />{" "}
             </>
           )}
+
           {favourite && (
             <>
               <GreyHeart
@@ -110,9 +117,17 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
                 onClick={() => {
                   deleteRecipe(id);
                 }}
+                data-tip="Remove from Favourite"
+                data-for="greyHeart"
               />
             </>
           )}
+          <ReactTooltip id="redHeart" place="top" effect="solid"></ReactTooltip>
+          <ReactTooltip
+            id="greyHeart"
+            place="top"
+            effect="solid"
+          ></ReactTooltip>
         </div>
       </div>
       {/* shows the ingredients */}

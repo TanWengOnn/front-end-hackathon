@@ -68,17 +68,19 @@ const Home = ({ cuisineType }) => {
           <FaSearch />
         </button>
       </div>
-      <h1>Just for you</h1>
-      {/* Render alert if there is an alert */}
-      {alert !== "" && <Alert alert={alert} />}
-      {/* Show loading message */}
-      {isPending && <div>Loading...</div>}
-      {/* Render only 6 recipe cards */}
-      <div className="wrapper">
+
+      <div className="recipes_container">
+        {/* letak if else untuk display cuisine type */}
+        <h1>Just for you</h1>
+        {/* Render alert if there is an alert */}
+        {alert !== "" && <Alert alert={alert} />}
+        {/* Show loading message */}
+        {isPending && <div>Loading...</div>}
+        {/* Render only 6 recipe cards */}
         <div className="recipes">
           {recipes !== [] &&
             recipes
-              .slice(0, 6)
+              .slice(0, 10)
               .map((recipe) => (
                 <Recipe
                   label={recipe.recipe.label}

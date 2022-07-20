@@ -3,7 +3,6 @@
   flex-wrap: nowrap;
   flex-direction: column;
   /* padding: 2rem 0; */
-  /* margin-top: 1rem; */
 }
 
 .search {
@@ -43,16 +42,15 @@
   font-size: 1.5rem;
 }
 
-.wrapper {
-  display: grid;
-  grid-gap: 10px;
-  justify-content: center;
-  /* grid-template-columns: auto auto auto;
-  grid-auto-rows: auto; */
+.recipes_container {
+  background-color: #f1f1f1;
+  border-radius: 50px 50px 0 0;
 }
 
 .recipes {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  justify-content: center;
+  margin-top: 1rem;
 }
