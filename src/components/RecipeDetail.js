@@ -1,9 +1,15 @@
-/*** IGNORE THIS PAGE ***/
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../firebase-config";
 import "./RecipeDetail.css";
-import { collection, addDoc, doc, deleteDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+} from "firebase/firestore";
 import { FaWindowClose } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaHeartBroken } from "react-icons/fa";
@@ -16,17 +22,50 @@ const RecipeDetail = () => {
   const navigate = useNavigate();
 
   const userCollectionRef = collection(db, "favourite");
+  const [favouriteRecipes, setFavouriteRecipes] = useState([]);
+
+  // Get all of the labels within the database
+  const getRecipes = async () => {
+    // error handling
+    try {
+      const data = await getDocs(userCollectionRef);
+      const dbLabels = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setFavouriteRecipes(dbLabels.map(recipe => recipe.label));
+      console.log(dbLabels.map(recipe => recipe.label))
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getRecipes();
+  }, []);
 
   // Add favourite to firebase DB
   const createRecipe = async () => {
-    await addDoc(userCollectionRef, {
-      label: location.state.label,
-      image: location.state.image,
-      url: location.state.url,
-      ingredients: location.state.ingredients,
-      favourite: true,
-    });
-    toast("Saved to Favourites!");
+    getRecipes();
+    // Compares the label with the database's labels
+    // checks if the label already exist in the database
+    if (!favouriteRecipes.includes(location.state.label)) {
+      try{
+        await addDoc(userCollectionRef, {
+          label: location.state.label,
+          image: location.state.image,
+          url: location.state.url,
+          ingredients: location.state.ingredients,
+          favourite: true,
+        });
+      }catch (error){
+        console.error(error);
+      }finally{
+        toast("Saved to Favourites!");
+      }
+    } else {
+      toast("Already exist in Favourites!");
+      // console.log("entry exist")
+      // console.log(favouriteRecipes)
+    }
+   
   };
 
   // Delete/Remove "favourite" and go back to the previous page

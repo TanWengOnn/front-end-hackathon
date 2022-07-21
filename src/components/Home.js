@@ -26,7 +26,7 @@ const Home = ({ cuisineType }) => {
   //api.edamam.com/api/recipes/v2?type=public&q=chicken%2C%20meat%2C%20seafood&app_id=ff7cbf09&app_key=1a77e20c357102a17616df9d71589e8b%09&imageSize=LARGE&random=true
 
   // Get Request
-  https: useEffect(() => {
+  useEffect(() => {
     setIsPending(true);
     // console.log("test");
     axios
