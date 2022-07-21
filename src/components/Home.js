@@ -63,7 +63,15 @@ const Home = ({ cuisineType }) => {
           placeholder="Search recipes..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          onKeyPress={(e) => {
+            // for keydown
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSubmit(e);
+            }
+          }}
         />
+        {/* for clicking */}
         <button onClick={handleSubmit} className="searchButton" type="submit">
           <FaSearch />
         </button>
@@ -71,7 +79,11 @@ const Home = ({ cuisineType }) => {
 
       <div className="recipes_container">
         {/* letak if else untuk display cuisine type */}
-        {cuisineType === "Home" ? <h1>Just for you</h1> : <h1>{cuisineType}</h1>}
+        {cuisineType === "Home" ? (
+          <h1>Just for you</h1>
+        ) : (
+          <h1>{cuisineType}</h1>
+        )}
         {/* Render alert if there is an alert */}
         {alert !== "" && <Alert alert={alert} />}
         {/* Show loading message */}
