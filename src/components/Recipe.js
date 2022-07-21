@@ -16,6 +16,9 @@ import ReactTooltip from "react-tooltip";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import 'rc-tooltip/assets/bootstrap.css';
+import Tooltip from 'rc-tooltip';
+
 const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
   // const { label, image, url, ingredients } = recipe.recipe;
   // Getting Database "table"
@@ -113,33 +116,36 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
             <>
               {" "}
               {/* Replaced favourite button with icon */}
-              <RedHeart
-                className="icon"
-                onClick={createRecipe}
-                data-tip="Add to Favourite"
-                data-for="redHeart"
-              />{" "}
+              <Tooltip overlay="Add to Favourite" placement="top">
+                <RedHeart
+                  className="icon"
+                  onClick={createRecipe}
+                />
+              </Tooltip>
+              
+              {" "}
             </>
           )}
 
           {favourite && (
             <>
+            <Tooltip overlay="Remove From Favourite" placement="top">
               <GreyHeart
                 className="icon"
                 onClick={() => {
                   deleteRecipe(id);
                 }}
-                data-tip="Remove from Favourite"
-                data-for="greyHeart"
               />
+
+            </Tooltip>
             </>
           )}
-          <ReactTooltip id="redHeart" place="top" effect="solid"></ReactTooltip>
+          {/* <ReactTooltip  id="redHeart" place="top" effect="solid"></ReactTooltip>
           <ReactTooltip
             id="greyHeart"
             place="top"
             effect="solid"
-          ></ReactTooltip>
+          ></ReactTooltip> */}
         </div>
       </div>
       {/* shows the ingredients */}
