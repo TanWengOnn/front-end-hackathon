@@ -54,14 +54,12 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
           ingredients: ingredients,
           favourite: true,
         });
-        
       } catch (error) {
         console.error(error);
       } finally {
         toast("Saved to Favourites!");
       }
-    }
-    else{
+    } else {
       toast("Already exist in Favourites!");
       // console.log("entry exist")
       // console.log(favouriteRecipes)
@@ -101,7 +99,13 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
             id: id,
           }}
         >
-          <img src={image} alt={label} />
+          <img
+            src={image}
+            alt={label}
+            width="300px"
+            height="300px"
+            object-fit="cover"
+          />
           <h3 className="label_text"> {label} </h3>
         </Link>
         <div className="icon-container">

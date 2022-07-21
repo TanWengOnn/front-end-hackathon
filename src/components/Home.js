@@ -10,7 +10,7 @@ import { Oval } from "react-loader-spinner";
 
 const Home = ({ cuisineType }) => {
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("chicken");
+  const [query, setQuery] = useState("chicken", "seafood", "meat", "vegetable");
   const [recipes, setRecipes] = useState([]);
   const [alert, setAlert] = useState("");
   const [isPending, setIsPending] = useState(true);
@@ -23,8 +23,10 @@ const Home = ({ cuisineType }) => {
     url = `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${process.env.REACT_APP_ID}&app_key=${process.env.REACT_APP_KEY}&cuisineType=${cuisineType}&random=true`;
   }
 
+  //api.edamam.com/api/recipes/v2?type=public&q=chicken%2C%20meat%2C%20seafood&app_id=ff7cbf09&app_key=1a77e20c357102a17616df9d71589e8b%09&imageSize=LARGE&random=true
+
   // Get Request
-  useEffect(() => {
+  https: useEffect(() => {
     setIsPending(true);
     // console.log("test");
     axios

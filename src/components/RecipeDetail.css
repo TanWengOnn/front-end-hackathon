@@ -1,0 +1,79 @@
+.button {
+  color: rgb(0, 0, 0);
+  background-color: #f9cb11;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 1rem;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.food_container {
+  background-color: #f1f1f1;
+  border-radius: 50px 50px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 13.5rem;
+}
+
+/* Grid for displaying title of food */
+.item1 {
+  grid-area: header;
+}
+/* Grid for displaying image of food */
+.item2 {
+  grid-area: main;
+  justify-content: right;
+  height: 600px;
+  width: 100%;
+  object-fit: contain;
+}
+.image_item2 {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+/* Grid for displaying buttons */
+.item3 {
+  grid-area: right;
+  padding-left: 2rem;
+  text-align: left;
+}
+/* Grid for displaying list of ingredients */
+.ingredients {
+  padding: 1px;
+  text-align: left;
+}
+
+.layout {
+  display: grid;
+  grid-template-areas:
+    "header header header header header header"
+    "main main main main right right";
+  gap: 2rem;
+}
+
+.layout > div {
+  font-size: 20px;
+}
+
+.fav_button {
+  color: black;
+}
+
+.food_image {
+  padding: 0;
+}
