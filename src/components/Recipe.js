@@ -1,11 +1,11 @@
 // import { v4 as uuidv4} from "uuid"
 import { useEffect, useState } from "react";
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,
   getDocs,
+  setDoc,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
@@ -19,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
   // const { label, image, url, ingredients } = recipe.recipe;
   // Getting Database "table"
-  const userCollectionRef = collection(db, "favourite");
+  const userCollectionRef = collection(db, "favourite3");
   const [favouriteRecipes, setFavouriteRecipes] = useState([]);
 
   // Get all of the labels within the database
@@ -28,7 +28,7 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
     try {
       const data = await getDocs(userCollectionRef);
       const dbLabels = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setFavouriteRecipes(dbLabels.map((recipe) => recipe.label));
+      setFavouriteRecipes(dbLabels.map((recipe) => recipe.id));
     } catch (error) {
       console.error(error);
     }
@@ -44,10 +44,12 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
 
     // Compares the label with the database's labels
     // checks if the label already exist in the database
-    if (!favouriteRecipes.includes(label)) {
+    if (!favouriteRecipes.includes(encodeURIComponent(url))) {
       // error handling
       try {
-        await addDoc(userCollectionRef, {
+        const id = encodeURIComponent(url);
+        const docRef = doc(db, `favourite3/${id}`);
+        await setDoc(docRef, {
           label: label,
           image: image,
           url: url,
@@ -57,10 +59,10 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
       } catch (error) {
         console.error(error);
       } finally {
-        toast("Saved to Favourites!");
+        toast('"' + label + '" saved to Favourites!');
       }
     } else {
-      toast("Already exist in Favourites!");
+      toast('"' + label + '" already exist in Favourites!');
       // console.log("entry exist")
       // console.log(favouriteRecipes)
     }
@@ -70,13 +72,16 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
   const deleteRecipe = async (id) => {
     // error handling
     try {
-      const recipeDoc = doc(db, "favourite", id);
+      const recipeDoc = doc(db, "favourite3", encodeURIComponent(url));
       await deleteDoc(recipeDoc);
-      window.location.reload();
+      //window.location.reload();
     } catch (error) {
       console.error(error);
     } finally {
-      // toast("Removed from Favourites!");
+      toast('"' + label + '" removed from Favourites!');
+      setFavouriteRecipes(
+        favouriteRecipes.filter((recipe) => recipe !== encodeURIComponent(url))
+      );
     }
   };
 
@@ -109,11 +114,11 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
           <h3 className="label_text"> {label} </h3>
         </Link>
         <div className="icon-container">
-          {!favourite && (
+          {!favouriteRecipes.includes(encodeURIComponent(url)) && (
             <>
               {" "}
               {/* Replaced favourite button with icon */}
-              <RedHeart
+              <GreyHeart
                 className="icon"
                 onClick={createRecipe}
                 data-tip="Add to Favourite"
@@ -122,9 +127,9 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
             </>
           )}
 
-          {favourite && (
+          {favouriteRecipes.includes(encodeURIComponent(url)) && (
             <>
-              <GreyHeart
+              <RedHeart
                 className="icon"
                 onClick={() => {
                   deleteRecipe(id);

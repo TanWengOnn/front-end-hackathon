@@ -7,7 +7,7 @@ import "./Favourite.css";
 
 const Favourite = () => {
   // Getting Database "table"
-  const userCollectionRef = collection(db, "favourite");
+  const userCollectionRef = collection(db, "favourite3");
   // State to hold the database information
   const [favouriteRecipes, setFavouriteRecipes] = useState([]);
 
