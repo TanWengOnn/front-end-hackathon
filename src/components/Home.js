@@ -5,6 +5,8 @@ import "./Home.css";
 import Alert from "./Alert";
 import Recipe from "./Recipe";
 import { FaSearch } from "react-icons/fa";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { Oval } from "react-loader-spinner";
 
 const Home = ({ cuisineType }) => {
   const [search, setSearch] = useState("");
@@ -62,10 +64,18 @@ const Home = ({ cuisineType }) => {
         <input
           className="searchTerm"
           type="text"
-          placeholder="Search recipes..."
+          placeholder={cuisineType === "Home" ? "Search recipes..." : "Search cuisine recipes..."}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          onKeyPress={(e) => {
+            // for keydown
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSubmit(e);
+            }
+          }}
         />
+        {/* for clicking */}
         <button onClick={handleSubmit} className="searchButton" type="submit">
           <FaSearch />
         </button>
@@ -73,15 +83,15 @@ const Home = ({ cuisineType }) => {
 
       <div className="recipes_container">
         {/* letak if else untuk display cuisine type */}
-        {cuisineType === "Home" ? (
-          <h1>Just for you</h1>
-        ) : (
-          <h1>{cuisineType}</h1>
-        )}
+        {cuisineType === "Home" ? <h1>{`Just for you - ${query}`}</h1> : <h1>{`${cuisineType} - ${query} `}</h1>}
         {/* Render alert if there is an alert */}
         {alert !== "" && <Alert alert={alert} />}
         {/* Show loading message */}
-        {isPending && <div>Loading...</div>}
+        {isPending && (
+          <div className="testing">
+            <Oval color="#f9cb11" height={80} width={80} />
+          </div>
+        )}
         {/* Render only 6 recipe cards */}
         <div className="recipes">
           {recipes !== [] &&

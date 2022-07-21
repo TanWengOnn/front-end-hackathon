@@ -61,3 +61,15 @@
     margin-top: 370px;
   }
 }
+
+.testing {
+  display: flex;
+  justify-content: center;
+  height: 200px;
+  align-items: center;
+}
+
+/* display: flex;
+    justify-content: center;
+    height: 200px;
+    align-items: center; */
