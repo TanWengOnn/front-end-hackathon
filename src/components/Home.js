@@ -8,7 +8,7 @@ import { FaSearch } from "react-icons/fa";
 
 const Home = ({ cuisineType }) => {
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("chicken, seafood, meat, vegetable");
+  const [query, setQuery] = useState("chicken");
   const [recipes, setRecipes] = useState([]);
   const [alert, setAlert] = useState("");
   const [isPending, setIsPending] = useState(true);
