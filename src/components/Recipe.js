@@ -20,7 +20,6 @@ import 'rc-tooltip/assets/bootstrap.css';
 import Tooltip from 'rc-tooltip';
 
 const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
-  // const { label, image, url, ingredients } = recipe.recipe;
   // Getting Database "table"
   const userCollectionRef = collection(db, "favourite");
   const [favouriteRecipes, setFavouriteRecipes] = useState([]);
@@ -64,8 +63,6 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
       }
     } else {
       toast("Already exist in Favourites!");
-      // console.log("entry exist")
-      // console.log(favouriteRecipes)
     }
   };
 
@@ -78,12 +75,12 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
       window.location.reload();
     } catch (error) {
       console.error(error);
-    } finally {
-      // toast("Removed from Favourites!");
+    } 
+    finally {
+      toast("Removed from Favourites!");
     }
   };
 
-  //console.log("food: "+ingredients.map(ingredient => ingredient.foodId))
   return (
     <div className="main-container">
       {/* shows all of the recipe details */}
@@ -113,8 +110,7 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
         </Link>
         <div className="icon-container">
           {!favourite && (
-            <>
-              {" "}
+            <div>
               {/* Replaced favourite button with icon */}
               <Tooltip overlay="Add to Favourite" placement="top">
                 <RedHeart
@@ -122,46 +118,23 @@ const Recipe = ({ label, image, url, ingredients, favourite, id }) => {
                   onClick={createRecipe}
                 />
               </Tooltip>
-              
-              {" "}
-            </>
+            </div>
           )}
 
           {favourite && (
-            <>
-            <Tooltip overlay="Remove From Favourite" placement="top">
-              <GreyHeart
-                className="icon"
-                onClick={() => {
+            <div>
+              <Tooltip overlay="Remove From Favourite" placement="top">
+                <GreyHeart
+                  className="icon"
+                  onClick={() => {
                   deleteRecipe(id);
-                }}
-              />
-
-            </Tooltip>
-            </>
+                  }}
+                />
+              </Tooltip>
+            </div>
           )}
-          {/* <ReactTooltip  id="redHeart" place="top" effect="solid"></ReactTooltip>
-          <ReactTooltip
-            id="greyHeart"
-            place="top"
-            effect="solid"
-          ></ReactTooltip> */}
         </div>
       </div>
-      {/* shows the ingredients */}
-      {
-        //--Ingredients can be seen by clicking the image--//
-        //--Uncomment to show the ingredients--//
-        // ingredients.map(ingredient =>
-        //     <ul key={uuidv4()}>
-        //         <li>{ingredient.text}</li>
-        //         <li>Weight - {ingredient.weight}</li>
-        //         {/* <li>ID - {ingredient.foodId}</li> */}
-        //     </ul>
-        // )
-      }
-
-      {/* <Link to="/recipe-detail"><button>More Detail</button></Link> */}
       <ToastContainer />
     </div>
   );

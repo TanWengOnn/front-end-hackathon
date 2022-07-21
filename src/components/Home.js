@@ -10,7 +10,7 @@ import { Oval } from "react-loader-spinner";
 
 const Home = ({ cuisineType }) => {
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("chicken", "seafood", "meat", "vegetable");
+  const [query, setQuery] = useState("chicken");
   const [recipes, setRecipes] = useState([]);
   const [alert, setAlert] = useState("");
   const [isPending, setIsPending] = useState(true);
@@ -23,12 +23,10 @@ const Home = ({ cuisineType }) => {
     url = `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${process.env.REACT_APP_ID}&app_key=${process.env.REACT_APP_KEY}&cuisineType=${cuisineType}&random=true`;
   }
 
-  //api.edamam.com/api/recipes/v2?type=public&q=chicken%2C%20meat%2C%20seafood&app_id=ff7cbf09&app_key=1a77e20c357102a17616df9d71589e8b%09&imageSize=LARGE&random=true
-
   // Get Request
   useEffect(() => {
     setIsPending(true);
-    // console.log("test");
+
     axios
       .get(url)
       .then((response) => {
@@ -41,7 +39,6 @@ const Home = ({ cuisineType }) => {
           setAlert("");
         }
         setIsPending(false);
-        // console.log(recipes.map(recipe =>  recipe.recipe.label));
       })
       .catch((error) => {
         console.log(`${error.response.status} (${error.message})`);
@@ -64,7 +61,7 @@ const Home = ({ cuisineType }) => {
         <input
           className="searchTerm"
           type="text"
-          placeholder={cuisineType === "Home" ? "Search recipes..." : "Search cuisine recipes..."}
+          placeholder={cuisineType === "Home" ? "Search Recipes..." : `Search ${cuisineType} Recipes...`}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyPress={(e) => {
@@ -82,8 +79,7 @@ const Home = ({ cuisineType }) => {
       </div>
 
       <div className="recipes_container">
-        {/* letak if else untuk display cuisine type */}
-        {cuisineType === "Home" ? <h1>{`Just for you - ${query}`}</h1> : <h1>{`${cuisineType} - ${query} `}</h1>}
+        {cuisineType === "Home" ? <h1>{`Just for you`}</h1> : <h1>{`${cuisineType} - ${query} `}</h1>}
         {/* Render alert if there is an alert */}
         {alert !== "" && <Alert alert={alert} />}
         {/* Show loading message */}
@@ -92,7 +88,7 @@ const Home = ({ cuisineType }) => {
             <Oval color="#f9cb11" height={80} width={80} />
           </div>
         )}
-        {/* Render only 6 recipe cards */}
+        {/* Render only 10 recipe cards */}
         <div className="recipes">
           {recipes !== [] &&
             recipes

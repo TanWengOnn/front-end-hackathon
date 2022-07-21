@@ -28,8 +28,6 @@ const Favourite = () => {
     getRecipes();
   }, []);
 
-  //console.log(favouriteRecipes)
-
   return (
     <div className="favourite_container">
       <h1>Favourite</h1>

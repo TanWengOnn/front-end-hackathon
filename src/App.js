@@ -1,7 +1,6 @@
 import "./App.css";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
-// import CuisineType from "./components/CuisineType";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RecipeDetail from "./components/RecipeDetail";
 import Favourite from "./components/Favourite";

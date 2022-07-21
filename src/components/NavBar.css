@@ -12,7 +12,7 @@
   height: 400px;
   padding: 0 0 20rem 0;
   box-sizing: border-box;
-  background: url(cooks.jpg);
+  background: url(../images/cooks.jpg);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

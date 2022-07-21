@@ -31,7 +31,6 @@ const RecipeDetail = () => {
       const data = await getDocs(userCollectionRef);
       const dbLabels = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setFavouriteRecipes(dbLabels.map(recipe => recipe.label));
-      console.log(dbLabels.map(recipe => recipe.label))
     } catch (error) {
       console.error(error);
     }
@@ -62,25 +61,26 @@ const RecipeDetail = () => {
       }
     } else {
       toast("Already exist in Favourites!");
-      // console.log("entry exist")
-      // console.log(favouriteRecipes)
     }
    
   };
 
   // Delete/Remove "favourite" and go back to the previous page
   const deleteRecipe = async (id) => {
-    const recipeDoc = doc(db, "favourite", id);
-    await deleteDoc(recipeDoc);
-    // Go back to the previous page
-    navigate(-1);
+    try {
+      const recipeDoc = doc(db, "favourite", id);
+      await deleteDoc(recipeDoc);
+      // Go back to the previous page
+      navigate(-1);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // previous page button
   const handleBack = () => {
     navigate(-1);
   };
-  //console.log(location.state)
   return (
     <div className="food_container">
       <div className="layout">
@@ -119,7 +119,7 @@ const RecipeDetail = () => {
             rel="noopener noreferrer"
             className="button"
           >
-            <FaEllipsisH /> More details
+            <FaEllipsisH /> Reference
           </a>
           <div className="ingredients">
             {/* shows the ingredients */}
@@ -127,8 +127,6 @@ const RecipeDetail = () => {
             {location.state.ingredients.map((ingredient) => (
               <ul key={uuidv4()}>
                 <li>{ingredient.text}</li>
-                {/* <li>Weight - {ingredient.weight}</li> */}
-                {/* <li>ID - {ingredient.foodId}</li> */}
               </ul>
             ))}
           </div>

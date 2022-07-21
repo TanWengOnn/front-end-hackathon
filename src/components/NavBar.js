@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import { FaUtensils } from "react-icons/fa";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+
+  const handleRefresh = () => {
+    navigate("/");
+    window.location.reload();
+  }
+
   return (
     <div className="navbar">
       <h1 className="logo">
@@ -11,7 +18,7 @@ const NavBar = () => {
       </h1>
       <div className="menu">
         {/* Create NavBar hyperlinks */}
-        <Link to="/" className="links">
+        <Link to="/" className="links" onClick={handleRefresh}>
           Home
         </Link>
         {/* Display recipe based on cuisine type */}

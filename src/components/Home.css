@@ -2,7 +2,6 @@
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
-  /* padding: 2rem 0; */
 }
 
 .search {
@@ -11,7 +10,6 @@
   justify-content: center;
   flex-wrap: nowrap;
   margin: 0 0 10rem 0;
-  /* padding-top: 1rem; */
 }
 
 .searchTerm {
@@ -68,8 +66,3 @@
   height: 200px;
   align-items: center;
 }
-
-/* display: flex;
-    justify-content: center;
-    height: 200px;
-    align-items: center; */
