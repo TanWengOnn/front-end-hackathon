@@ -5,6 +5,8 @@ import "./Home.css";
 import Alert from "./Alert";
 import Recipe from "./Recipe";
 import { FaSearch } from "react-icons/fa";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { Oval } from "react-loader-spinner";
 
 const Home = ({ cuisineType }) => {
   const [search, setSearch] = useState("");
@@ -83,7 +85,11 @@ const Home = ({ cuisineType }) => {
         {/* Render alert if there is an alert */}
         {alert !== "" && <Alert alert={alert} />}
         {/* Show loading message */}
-        {isPending && <div>Loading...</div>}
+        {isPending && (
+          <div className="testing">
+            <Oval color="#f9cb11" height={80} width={80} />
+          </div>
+        )}
         {/* Render only 6 recipe cards */}
         <div className="recipes">
           {recipes !== [] &&
