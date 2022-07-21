@@ -3,38 +3,82 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../firebase-config";
 import "./RecipeDetail.css";
-import { collection, addDoc, doc, deleteDoc } from "firebase/firestore";
 import { FaWindowClose } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaHeartBroken } from "react-icons/fa";
 import { FaEllipsisH } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect, useState } from "react";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 
 const RecipeDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const userCollectionRef = collection(db, "favourite");
+  const userCollectionRef = collection(db, "favourite3");
+  const [favouriteRecipes, setFavouriteRecipes] = useState([]);
+
+  // Get all of the labels within the database
+  const getRecipes = async () => {
+    // error handling
+    try {
+      const data = await getDocs(userCollectionRef);
+      const dbLabels = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setFavouriteRecipes(dbLabels.map((recipe) => recipe.id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getRecipes();
+  }, []);
 
   // Add favourite to firebase DB
   const createRecipe = async () => {
-    await addDoc(userCollectionRef, {
+    const id = encodeURIComponent(location.state.url);
+    const docRef = doc(db, `favourite3/${id}`);
+    await setDoc(docRef, {
       label: location.state.label,
       image: location.state.image,
       url: location.state.url,
       ingredients: location.state.ingredients,
       favourite: true,
     });
-    toast("Saved to Favourites!");
+    getRecipes();
+    toast('"' + location.state.label + '" saved to Favourites!');
   };
 
   // Delete/Remove "favourite" and go back to the previous page
   const deleteRecipe = async (id) => {
-    const recipeDoc = doc(db, "favourite", id);
-    await deleteDoc(recipeDoc);
+    try {
+      const recipeDoc = doc(
+        db,
+        "favourite3",
+        encodeURIComponent(location.state.url)
+      );
+      await deleteDoc(recipeDoc);
+      //window.location.reload();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      toast('"' + location.state.label + '" removed from Favourites!');
+      setFavouriteRecipes(
+        favouriteRecipes.filter(
+          (recipe) => recipe !== encodeURIComponent(location.state.url)
+        )
+      );
+    }
+
     // Go back to the previous page
-    navigate(-1);
+    //navigate(-1);
   };
 
   // previous page button
@@ -59,12 +103,16 @@ const RecipeDetail = () => {
           <button className="button" onClick={handleBack}>
             <FaWindowClose /> Close
           </button>
-          {!location.state.favourite && (
+          {!favouriteRecipes.includes(
+            encodeURIComponent(location.state.url)
+          ) && (
             <button className="button" onClick={createRecipe}>
               <FaHeart /> Add to favourite
             </button>
           )}
-          {location.state.favourite && (
+          {favouriteRecipes.includes(
+            encodeURIComponent(location.state.url)
+          ) && (
             <button
               className="button"
               onClick={() => {
