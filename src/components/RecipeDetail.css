@@ -58,6 +58,34 @@
   text-align: left;
 }
 
+/* Animation for list of ingredients */
+.shine {
+  transition: 0.5s;
+}
+
+.shine:hover {
+  color: rgb(0, 0, 0);
+  text-shadow: 0 0 5px #f9cb11, 0 0 25px #ffffff, 0 0 50px #ffffff,
+    0 0 100px #f9cb11;
+}
+
+/* Animation for image */
+.zoom-in {
+  height: 600px;
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.zoom-in img {
+  width: 100%;
+  transition: 0.5s all ease-in-out;
+}
+
+.zoom-in:hover img {
+  transform: scale(1.5);
+}
+
 .layout {
   display: grid;
   grid-template-areas:

@@ -30,7 +30,7 @@ const RecipeDetail = () => {
     try {
       const data = await getDocs(userCollectionRef);
       const dbLabels = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setFavouriteRecipes(dbLabels.map(recipe => recipe.label));
+      setFavouriteRecipes(dbLabels.map((recipe) => recipe.label));
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +46,7 @@ const RecipeDetail = () => {
     // Compares the label with the database's labels
     // checks if the label already exist in the database
     if (!favouriteRecipes.includes(location.state.label)) {
-      try{
+      try {
         await addDoc(userCollectionRef, {
           label: location.state.label,
           image: location.state.image,
@@ -54,15 +54,14 @@ const RecipeDetail = () => {
           ingredients: location.state.ingredients,
           favourite: true,
         });
-      }catch (error){
+      } catch (error) {
         console.error(error);
-      }finally{
+      } finally {
         toast("Saved to Favourites!");
       }
     } else {
       toast("Already exist in Favourites!");
     }
-   
   };
 
   // Delete/Remove "favourite" and go back to the previous page
@@ -81,13 +80,14 @@ const RecipeDetail = () => {
   const handleBack = () => {
     navigate(-1);
   };
+
   return (
     <div className="food_container">
       <div className="layout">
         <div className="item1">
           <h2> {location.state.label} </h2>
         </div>
-        <div className="item2">
+        <div className="item2 zoom-in">
           <img
             className="image_item2"
             src={location.state.image}
@@ -124,11 +124,13 @@ const RecipeDetail = () => {
           <div className="ingredients">
             {/* shows the ingredients */}
             <h4>Ingredients:</h4>
-            {location.state.ingredients.map((ingredient) => (
-              <ul key={uuidv4()}>
-                <li>{ingredient.text}</li>
-              </ul>
-            ))}
+            <div className="shine">
+              {location.state.ingredients.map((ingredient) => (
+                <ul key={uuidv4()}>
+                  <li>{ingredient.text}</li>
+                </ul>
+              ))}
+            </div>
           </div>
         </div>
       </div>

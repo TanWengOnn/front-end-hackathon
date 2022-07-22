@@ -15,6 +15,7 @@
   margin: 0px 0px 20px 0px;
   width: 300px;
   height: 300px;
+  object-fit: cover;
   overflow: hidden;
 }
 .image img {
